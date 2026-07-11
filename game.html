@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>自己紹介</title>
+    <meta name="description" content="京都デザインテクノロジー専門学校、自己紹介">
+    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+    <link rel="stylesheet" href="./css/game.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="../images/favicon.png">
+</head>
+<body>
+  <nav class="header-contents">
+    <div class="header-content-left">
+      <h1><a href="index.html">尾塩知彦</a></h1>
+    </div>
+    <div>
+      <a class="migi"href="origin.html">生い立ち</a>
+      <a class="migi"href="cat.html">猫</a>
+      <a class="migi"href="cafe.html">カフェ</a>
+      <a class="migi"href="game.html">ゲーム</a>
+    </div>
+  </nav>
+    <hr width="1860" size="5" noshade="">
+    <main class="scroll-wrapper">
+      <section class="page-section active" id="hello">
+        <div class="section-inner">
+          <h2>こんにちは！</h2>
+          <p>
+            はじめまして、尾塩知彦です。<br>
+            Web制作を勉強しています。
+          </p>
+          <ul>
+            <li>趣味：ゲーム</li>
+            <li>好きなもの：カフェ巡り、音楽、散歩</li>
+            <li>目標：おしゃれなサイトを作ること</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="page-section" id="dream">
+        <div class="section-inner">
+          <h2>将来の夢</h2>
+          <ul>
+            <li>AIエンジニアになることです。</li>
+            <li>理由は未来のニーズに合った職業を目指しているからです。</li>
+            <li>同じような目標を持つ人達と一緒に努力したいです。</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="page-section" id="timeline">
+        <div class="section-inner">
+          <h2>タイムライン</h2>
+          <ul>
+            <li>2026年：京都デザインテクノロジー専門学校入学</li>
+            <li>2027年：Web制作の基礎を学ぶ</li>
+            <li>2028年：AIエンジニアリングの基礎を学ぶ</li>
+            <li>2029年：AIエンジニアとしてのスキルを磨く</li>
+            <li>2030年：AIエンジニアとして就職</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="page-section" id="contact">
+        <div class="section-inner">
+          <h2>お問い合わせ</h2>
+          <form class="contact-form" action="#" method="post">
+            <label>
+              お名前
+              <input type="text" name="name" placeholder="例: 山田 太郎" required>
+            </label>
+            <label>
+              メールアドレス
+              <input type="email" name="email" placeholder="example@mail.com" required>
+            </label>
+            <label>
+              メッセージ
+              <textarea name="message" rows="5" placeholder="メッセージをご入力ください" required></textarea>
+            </label>
+            <button type="submit">送信する</button>
+          </form>
+        </div>
+      </section>
+    </main>
+      <hr width="1860" size="5" noshade="">
+      <div id="copyright" class="copyright hidden">
+        <small>&copy; 2026 尾塩知彦</small>
+      </div>
+      <script>
+        const contactSection = document.getElementById('contact');
+        const copyrightEl = document.getElementById('copyright');
+
+        if (contactSection && copyrightEl) {
+          const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                copyrightEl.classList.remove('hidden');
+              } else {
+                copyrightEl.classList.add('hidden');
+              }
+            });
+          }, { threshold: 0.4 });
+
+          observer.observe(contactSection);
+        }
+
+        const wrapper = document.querySelector('.scroll-wrapper');
+        const sections = Array.from(document.querySelectorAll('.page-section'));
+        // 初回読み込み時に最初のセクションを表示するために短い遅延で active を付与（フェードインを確実にする）
+        if (sections.length) setTimeout(() => sections[0].classList.add('active'), 50);
+
+        if (wrapper && sections.length) {
+          const sectionRatio = new Map();
+
+          const updateActive = () => {
+            const best = sections.reduce((current, section) => {
+              const ratio = sectionRatio.get(section) || 0;
+              return ratio > (current.ratio || 0) ? { section, ratio } : current;
+            }, { section: sections[0], ratio: 0 });
+
+            sections.forEach(section => {
+              section.classList.toggle('active', section === best.section);
+            });
+          };
+
+          const sectionObserver = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+              sectionRatio.set(entry.target, entry.intersectionRatio);
+            });
+            updateActive();
+          }, {
+            root: wrapper,
+            threshold: [0, 0.25, 0.5, 0.75, 1],
+          });
+
+          sections.forEach(section => sectionObserver.observe(section));
+          updateActive();
+        }
+      </script>
+</body>
+</html>
