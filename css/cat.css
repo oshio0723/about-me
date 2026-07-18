@@ -233,6 +233,184 @@ h1{
     margin: 0.6rem 0;
 }
 
+/* 文字セクションと画像セクション */
+.ku-tyan-section {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    align-items: start;
+    width: 100%;
+    min-height: calc(100vh - 12rem);
+    margin-top: 1rem;
+}
+
+.ku-tyan-text {
+    padding: 1.4rem 1.3rem;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    border-radius: 18px;
+    box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+}
+
+.ku-tyan-text h2 {
+    margin-bottom: 0.9rem;
+    line-height: 1.15;
+}
+
+.ku-tyan-text p {
+    font-size: clamp(20px, 2.1vw, 30px);
+    line-height: 1.65;
+}
+
+.ku-tyan-images {
+    width: 100%;
+}
+
+/* ku-tyan ギャラリー */
+.ku-tyan-gallery {
+    display: grid;
+    grid-template-columns: minmax(260px, 1fr) 360px;
+    gap: 1rem;
+    align-items: start;
+    justify-items: center;
+    width: 100%;
+    min-height: 0;
+}
+
+.ku-tyan-tate {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    transition: transform 0.28s ease, box-shadow 0.28s ease;
+    display: block;
+    object-fit: cover;
+}
+
+.ku-tyan-gallery .ku-tyan-tate.main {
+    grid-column: 1;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    object-fit: cover;
+    justify-self: center;
+    align-self: start;
+    min-height: 0;
+}
+
+.ku-tyan-right {
+    grid-column: 2;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: flex-start;
+}
+
+.ku-tyan-yoko {
+    flex: 1 1 0;
+    width: 100%;
+    height: 0; /* flex-basis 0 + flex-grow 1 makes equal-height split */
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.ku-tyan-tate:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 14px 34px rgba(0,0,0,0.18);
+}
+
+@media (max-width: 520px) {
+    .ku-tyan-gallery { grid-template-columns: 1fr; }
+    .ku-tyan-tate { max-width: 90%; }
+    .ku-tyan-yoko { grid-column: auto; }
+}
+
+@media (max-width: 800px) {
+    .ku-tyan-section {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        gap: 1.4rem;
+    }
+
+    .ku-tyan-text {
+        padding: 1.2rem 1.1rem;
+    }
+
+    .ku-tyan-gallery {
+        min-height: auto;
+        grid-template-columns: 1fr;
+    }
+
+    .ku-tyan-gallery .ku-tyan-tate.main {
+        height: auto;
+    }
+
+    .ku-tyan-right {
+        flex-direction: column;
+    }
+
+    .ku-tyan-yoko {
+        height: auto;
+        flex: none;
+    }
+
+    .ku-tyan-gallery .ku-tyan-tate.main,
+    .ku-tyan-yoko {
+        max-width: 100%;
+    }
+}
+
+/* 画像モーダル（クリックで拡大） */
+.image-modal {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(6,6,6,0.6);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 220ms ease, visibility 220ms ease;
+    z-index: 1200;
+    padding: 2rem;
+}
+.image-modal.open {
+    opacity: 1;
+    visibility: visible;
+}
+.image-modal img {
+    max-width: 95%;
+    max-height: 92vh;
+    border-radius: 10px;
+    box-shadow: 0 18px 48px rgba(0,0,0,0.65);
+}
+.modal-close {
+    position: absolute;
+    top: 1.2rem;
+    right: 1.2rem;
+    background: rgba(255,255,255,0.9);
+    border: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    font-size: 22px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+}
+.modal-close:hover { transform: scale(1.04); }
+
+@media (max-width: 420px) {
+    .modal-close { width: 40px; height: 40px; top: 0.8rem; right: 0.8rem; }
+}
+
 .section-divider {
     border: none;
     border-top: 1px solid rgba(0, 0, 0, 0.18);

@@ -139,19 +139,32 @@ h2{
 }
 
 .title-with-image {
-    display: inline-flex;
+    display: flex;
     align-items: center;
     gap: 1rem;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    width: 100%;
     margin-bottom: 1rem;
 }
 
 .title-with-image .title-image {
-    width: 120px;
-    max-width: 25vw;
+    width: 180px;
+    max-width: 30vw;
     height: auto;
     border-radius: 16px;
     object-fit: cover;
+    margin-left: auto;
+    transform: translateX(-6px);
+}
+
+.ramen-image {
+    width: 240px;
+    max-width: 45%;
+    height: auto;
+    margin-left: auto;
+    margin-right: 0;
+    margin-bottom: 1rem;
+    border-radius: 14px;
 }
 
 h3{

@@ -27,64 +27,35 @@
     <main class="scroll-wrapper">
       <section class="page-section active" id="hello">
         <div class="section-inner">
-          <h2>こんにちは！</h2>
-          <p>
-            はじめまして、尾塩知彦です。<br>
-            Web制作を勉強しています。
-          </p>
+          <div class="ku-tyan-section">
+            <div class="ku-tyan-text">
+              <h2>スコティッシュフォールド</h2>
+              <p>
+                友達の飼い猫です。<br>
+                名前は「くるみ」で、くーちゃんと呼んでいます。
+              </p>
+            </div>
+
+            <div class="ku-tyan-images">
+              <div class="ku-tyan-gallery">
+                <img class="ku-tyan-tate main" src="images/Imageku-tyan-tate.webp" alt="くーちゃん" />
+                <div class="ku-tyan-right">
+                  <img class="ku-tyan-tate ku-tyan-yoko" src="images/Imageku-tyan-yoko-sinbun.jpeg" alt="くーちゃん" />
+                  <img class="ku-tyan-tate ku-tyan-yoko" src="images/Imageku-tyan-yoko-tukue.jpeg" alt="くーちゃん" />
+                </div>
+              </div>
+            </div>
+          </div>
           <ul>
-            <li>趣味：ゲーム</li>
-            <li>好きなもの：カフェ巡り、音楽、散歩</li>
-            <li>目標：おしゃれなサイトを作ること</li>
           </ul>
         </div>
       </section>
 
-      <section class="page-section" id="dream">
-        <div class="section-inner">
-          <h2>将来の夢</h2>
-          <ul>
-            <li>AIエンジニアになることです。</li>
-            <li>理由は未来のニーズに合った職業を目指しているからです。</li>
-            <li>同じような目標を持つ人達と一緒に努力したいです。</li>
-          </ul>
-        </div>
-      </section>
-
-      <section class="page-section" id="timeline">
-        <div class="section-inner">
-          <h2>タイムライン</h2>
-          <ul>
-            <li>2026年：京都デザインテクノロジー専門学校入学</li>
-            <li>2027年：Web制作の基礎を学ぶ</li>
-            <li>2028年：AIエンジニアリングの基礎を学ぶ</li>
-            <li>2029年：AIエンジニアとしてのスキルを磨く</li>
-            <li>2030年：AIエンジニアとして就職</li>
-          </ul>
-        </div>
-      </section>
-
-      <section class="page-section" id="contact">
-        <div class="section-inner">
-          <h2>お問い合わせ</h2>
-          <form class="contact-form" action="#" method="post">
-            <label>
-              お名前
-              <input type="text" name="name" placeholder="例: 山田 太郎" required>
-            </label>
-            <label>
-              メールアドレス
-              <input type="email" name="email" placeholder="example@mail.com" required>
-            </label>
-            <label>
-              メッセージ
-              <textarea name="message" rows="5" placeholder="メッセージをご入力ください" required></textarea>
-            </label>
-            <button type="submit">送信する</button>
-          </form>
-        </div>
-      </section>
     </main>
+      <div class="image-modal" id="imageModal" aria-hidden="true" role="dialog">
+        <button class="modal-close" id="modalClose" aria-label="閉じる">×</button>
+        <img id="modalImage" src="" alt="" />
+      </div>
       <hr width="1860" size="5" noshade="">
       <div id="copyright" class="copyright hidden">
         <small>&copy; 2026 尾塩知彦</small>
@@ -139,6 +110,38 @@
           sections.forEach(section => sectionObserver.observe(section));
           updateActive();
         }
+      </script>
+      <script>
+        (function(){
+          const modal = document.getElementById('imageModal');
+          const modalImg = document.getElementById('modalImage');
+          const closeBtn = document.getElementById('modalClose');
+          const imgs = document.querySelectorAll('.ku-tyan-tate');
+
+          function openModal(src, alt){
+            modalImg.src = src;
+            modalImg.alt = alt || '';
+            modal.classList.add('open');
+            modal.setAttribute('aria-hidden','false');
+            document.body.style.overflow = 'hidden';
+          }
+
+          function closeModal(){
+            modal.classList.remove('open');
+            modal.setAttribute('aria-hidden','true');
+            modalImg.src = '';
+            document.body.style.overflow = '';
+          }
+
+          imgs.forEach(img=>{
+            img.style.cursor = 'zoom-in';
+            img.addEventListener('click', ()=> openModal(img.src, img.alt));
+          });
+
+          closeBtn.addEventListener('click', closeModal);
+          modal.addEventListener('click', e=>{ if(e.target===modal) closeModal(); });
+          document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeModal(); });
+        })();
       </script>
 </body>
 </html>

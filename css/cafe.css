@@ -281,6 +281,15 @@ h1{
     background-color: #2a4;
 }
 
+.page-section a {
+    text-decoration: underline;
+    text-underline-offset: 0.18em;
+}
+
+.page-section a:hover {
+    opacity: 0.8;
+}
+
 .copyright {
     position: fixed;
     left: 0;
